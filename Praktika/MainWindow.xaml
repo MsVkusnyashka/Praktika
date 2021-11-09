@@ -1,0 +1,74 @@
+﻿<Window x:Class="Praktika.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Praktika" xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        mc:Ignorable="d"
+        Title="ToursApp" Height="600" Width="1000" MinHeight="600" MinWidth="1000">
+    <Window.Resources>
+        <Style TargetType="Label">
+            <Setter Property="FontFamily" Value="Comic Sans MS"/>
+            <Setter Property="FontSize" Value="14"/>
+        </Style>
+        <Style TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="Comic Sans MS"/>
+            <Setter Property="FontSize" Value="14"/>
+        </Style>
+        <sys:String x:Key="NullImage">
+            pack://application:,,,picture.png
+        </sys:String>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="4*"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="4*"/>
+                <ColumnDefinition Width="6*"/>
+            </Grid.ColumnDefinitions>            <Image Grid.Column="0" Source="C:\Users\Полуночница\Desktop\ДЭ\logo.png" Width="150" Height="150" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            <UniformGrid Columns="1" Rows="4" Grid.Column="1">
+                <Label Content="Введите текст для поиска:" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                <Label Content="Выберите тип:" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+            </UniformGrid>
+            <UniformGrid Columns="1" Rows="4" Grid.Column="2">
+                <TextBox HorizontalAlignment="Left" VerticalAlignment="Center" Width="200" Height="25" x:Name="TxtFindedTourName" TextChanged="TxtFindedTourName_TextChanged"/>
+                <ComboBox x:Name="CmbTypes" HorizontalAlignment="Left" VerticalAlignment="Center" Width="200" Height="25" DisplayMemberPath="Name" SelectionChanged="CmbTypes_SelectionChanged"/>
+                <CheckBox x:Name="ChbActual" Content="только актуальные туры" Checked="ChbActual_Checked" VerticalAlignment="Center" Unchecked="ChbActual_Unchecked"/>
+                <Button x:Name="BtnListHotelsView" Content="Список отелей" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Click="BtnListHotelsView_Click"/>
+            </UniformGrid>
+        </Grid>
+        <ListView Grid.Row="1" x:Name="ListTours" HorizontalContentAlignment="Center" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+            <ListView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel>
+                    </WrapPanel>
+                </ItemsPanelTemplate>
+            </ListView.ItemsPanel>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Border BorderThickness="1" BorderBrush="Gray" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <Grid Width="400" Height="300" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="50*"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <TextBlock Grid.Row="0" Text="{Binding Name}" HorizontalAlignment="Center" FontSize="20" TextWrapping="Wrap" TextAlignment="Center" VerticalAlignment="Center"/>
+                            <Image Grid.Row="1" Source="{Binding ImgPath, FallbackValue={StaticResource NullImage}}" HorizontalAlignment="Center"/>
+                            <TextBlock Grid.Row="2" Text="{Binding FullViewPrice}" HorizontalAlignment="Center" FontSize="20" FontStyle="Oblique"/>
+                            <UniformGrid Grid.Row="3" Columns="2" Rows="1" HorizontalAlignment="Center">
+                                <TextBlock Text="{Binding State}" Foreground="{Binding solidColorBrush}" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="3 3"/>
+                                <TextBlock Text="{Binding FullTicketCount}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </UniformGrid>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>
+</Window>
